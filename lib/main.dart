@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/product_overview_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,29 +11,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData();
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Shop App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
+      theme: theme.copyWith(
+        textTheme: theme.textTheme.apply(fontFamily: 'Lato'),
+        //secondry for accent color
+        colorScheme: theme.colorScheme
+            .copyWith(primary: Colors.pink, secondary: Colors.deepOrange),
+        appBarTheme: AppBarTheme(
+          backgroundColor:
+              Colors.pink, // Set the background color of the AppBar
+          titleTextStyle: theme.textTheme.titleLarge?.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
       ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Shop app'),
-      ),
-      body: const Center(
-        child: Text('My Shop'),
-      ),
+      home: const ProductOverviewScreen(),
     );
   }
 }
