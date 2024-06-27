@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/products.dart';
+import 'package:shop_app/screens/product_detail_screen.dart';
 import 'package:shop_app/screens/product_overview_screen.dart';
 
 void main() {
@@ -12,25 +15,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = ThemeData();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Shop App',
-      theme: theme.copyWith(
-        textTheme: theme.textTheme.apply(fontFamily: 'Lato'),
-        //secondry for accent color
-        colorScheme: theme.colorScheme
-            .copyWith(primary: Colors.pink, secondary: Colors.deepOrange),
-        appBarTheme: AppBarTheme(
-          backgroundColor:
-              Colors.pink, // Set the background color of the AppBar
-          titleTextStyle: theme.textTheme.titleLarge?.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => Products(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Shop App',
+        theme: theme.copyWith(
+          textTheme: theme.textTheme.apply(fontFamily: 'Lato'),
+          //secondry for accent color
+          colorScheme: theme.colorScheme
+              .copyWith(primary: Colors.pink, secondary: Colors.deepOrange),
+          appBarTheme: AppBarTheme(
+            backgroundColor:
+                Colors.pink, // Set the background color of the AppBar
+            titleTextStyle: theme.textTheme.titleLarge?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ),
+        home: const ProductOverviewScreen(),
+        routes: {
+          ProductDetailScreen.routeName: (context) => const ProductDetailScreen()
+        },
       ),
-      home: const ProductOverviewScreen(),
     );
   }
 }
